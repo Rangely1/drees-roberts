@@ -12,6 +12,11 @@
   </header>
 
   <section>
+    <h2>Countdown to the Big Day</h2>
+    <p id="countdown" style="font-size: 1.5em; font-weight: bold; color: darkred;"></p>
+  </section>
+
+  <section>
     <h2>Our Story</h2>
     <p>We met online, like most people in the modern era.</p>
   </section>
@@ -20,5 +25,27 @@
     <h2>Event Details</h2>
     <p>When: TODO <br>Where: Wiedemann Hill Mansion<br>Attire: Formal</p>
   </section>
+  <script>
+    const countdownTarget = new Date("November 15, 2026 16:00:00").getTime();
+  
+    const countdownInterval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countdownTarget - now;
+  
+      if (distance < 0) {
+        clearInterval(countdownInterval);
+        document.getElementById("countdown").innerHTML = "🎉 It's Wedding Time!";
+        return;
+      }
+  
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+      document.getElementById("countdown").innerHTML =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+  </script>
 </body>
 </html>
