@@ -1,0 +1,16 @@
+body {
+    font-family: 'Georgia', serif;
+    background: #fffaf5;
+    color: #333;
+    padding: 1em 2em;
+    line-height: 1.6;
+  }
+  
+  header {
+    text-align: center;
+    padding-bottom: 2em;
+  }
+  
+  section {
+    margin-bottom: 2em;
+  }
