@@ -2,6 +2,7 @@
 :root {
     --green: #2e4e40;
     --champagne: #e6d3a3;
+    --gold: #b99837;
     --background: #fdfcf9;
     --text: #333;
   }
@@ -104,3 +105,71 @@
   html {
     scroll-behavior: smooth;
   }
+.timeline-section {
+  position: relative;
+  padding: 2rem 1rem;
+  max-width: 700px;
+  margin: auto;
+}
+
+.timeline-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem; /* Increased space between items */
+  padding-bottom: 100px;
+}
+
+.timeline-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.6s ease-out;
+  background-color: #f9f9f9;
+  border-left: 6px solid #2e5339;
+  padding: 2rem;
+  border-radius: 0 1rem 1rem 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  min-height: 80vh;  /* Ensures scrolling even if content is short */
+}
+
+.timeline-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Progress bar */
+.scroll-indicator {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 24px;
+  background-color: #e0dcdc;
+  z-index: 1000;
+}
+
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #2e5339;
+  width: 0;
+  transition: width 0.25s;
+}
+
+/* Milestone icons */
+.milestone {
+  opacity: 0 !important;
+  transform: translateX(-50%) scale(0.8);
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  position: absolute;
+  bottom: 2px;
+  font-size: 20px;
+  z-index: 2;
+}
+
+.milestone.active {
+  opacity: 1 !important;
+  transform: translateX(-50%) scale(1.2);
+}

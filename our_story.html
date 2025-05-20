@@ -8,8 +8,8 @@
 
 <body>
   <header>
-    <h1>Header</h1>
-    <p>Paragraph</p>
+    <h1>Destiny & Rangely</h1>
+    <p>And our pets!</p>
   </header>
 
   <nav class="nav-banner">
@@ -19,5 +19,90 @@
     <a href="rsvp.html">RSVP</a>
     <a href="registry.html">Registry</a>
   </nav>
-  
+<section class="timeline-section">
+  <div class="timeline-container">
+    <div class="timeline-item" data-label="how-we-met">
+      <h3>How We Met</h3>
+      <p>We met online</p>
+    </div>
+    <div class="timeline-item" data-label="moved-in">
+      <h3>Moved In</h3>
+      <p>The day we moved in</p>
+    </div>
+    <div class="timeline-item" data-label="vacation">
+      <h3>Trip to Tennessee</h3>
+      <p>This was our first vacation we took together. Destiny met my aunts, cousins, and my uncle.</p>
+    </div>
+    <div class="timeline-item" data-label="engaged">
+      <p>WE ARE ENGAGED NOWWWWWW</p>
+    </div>  
+  </div>
+
+  <!-- Progress bar container -->
+  <div class="scroll-indicator">
+    <div class="progress-bar"></div>
+  </div>
+</section>
+
+<script>
+  const progressBar = document.querySelector('.progress-bar');
+  const container = document.querySelector('.timeline-container');
+  const scrollIndicator = document.querySelector('.scroll-indicator');
+
+  const milestones = [
+    { label: 'how-we-met', icon: '💌'},
+    { label: 'moved-in', icon: '🏡' },
+    {label: 'vacation', icon: '🗺️'},
+    {label: 'engaged', icon: '💍'}
+  ];
+
+  // Place icons dynamically
+  milestones.forEach(({ label, icon }) => {
+    const item = document.querySelector(`.timeline-item[data-label="${label}"]`);
+    if (item) {
+      const milestone = document.createElement('div');
+      milestone.classList.add('milestone');
+      milestone.setAttribute('data-label', label);
+      milestone.innerText = icon;
+
+      // Append before calculating position (must be in DOM)
+      scrollIndicator.appendChild(milestone);
+
+      // Calculate position as percentage of page height
+      const itemOffset = item.offsetTop;
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const leftPercent = (itemOffset / totalHeight) * 100;
+      milestone.style.left = `${leftPercent}%`;
+    }
+  });
+
+  // Animate items in view & track scroll progress
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const target = entry.target;
+      if (entry.isIntersecting) {
+        target.classList.add('show');
+
+        // Activate corresponding milestone icon
+        const label = target.getAttribute('data-label');
+        const milestoneIcon = document.querySelector(`.milestone[data-label="${label}"]`);
+        if (milestoneIcon) {
+          milestoneIcon.classList.add('active');
+        }
+      }
+    });
+  }, { root: null, rootMargin: '0px', threshold: 1.0 });
+
+  document.querySelectorAll('.timeline-item').forEach(item => {
+    observer.observe(item);
+  });
+
+  // Scroll progress bar update
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
+  });
+</script>
 </body>
